@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Clase arbol que almacena los nodos binarios
+ * @author Sebastian Luna R
+ *
+ * @param <T> Item, debe de implementar Comparable
+ */
 public class Tree<T extends Comparable<T>> {
 
 	/**
