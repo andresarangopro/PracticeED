@@ -1,4 +1,4 @@
-package Operaciones;
+package operaciones;
 
 import java.awt.Color;
 import java.awt.Desktop;
