@@ -1,4 +1,4 @@
-package mundo;
+package Operaciones;
 
 import java.awt.Color;
 import java.awt.Desktop;
