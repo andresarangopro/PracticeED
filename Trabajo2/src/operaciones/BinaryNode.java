@@ -1,10 +1,10 @@
 package operaciones;
 
 /**
- * Hojas del arból en las cuales se almacenan cada uno de los items
+ * Hojas del arbï¿½l en las cuales se almacenan cada uno de los items
  * @author Sebastian Luna R
  *
- * @param <T> Parámetro para definir el tipo del árbol, debe de ser tipo Comparable
+ * @param <T> Parï¿½metro para definir el tipo del ï¿½rbol, debe de ser tipo Comparable
  */
 public class BinaryNode<T extends Comparable<T>> implements Comparable<BinaryNode<T>> {
 
@@ -89,7 +89,7 @@ public class BinaryNode<T extends Comparable<T>> implements Comparable<BinaryNod
 
 	
 	///////////////////////////////////////
-	///////Métodos
+	///////Mï¿½todos
 	///////////////////////////////////////
 	/**
 	 * Compara un nodo con otro nodo.
@@ -107,7 +107,7 @@ public class BinaryNode<T extends Comparable<T>> implements Comparable<BinaryNod
 	}
 	
 	/**
-	 * Método encargado de imprimir el contenido del nodo
+	 * Mï¿½todo encargado de imprimir el contenido del nodo
 	 */
 	@Override
 	public String toString() {

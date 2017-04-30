@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
+
 /**
  * Clase arbol que almacena los nodos binarios
  * @author Sebastian Luna R
@@ -13,13 +14,13 @@ import java.util.Queue;
 public class Tree<T extends Comparable<T>> {
 
 	/**
-	 * Primer nodo del árbol (Raiz).
+	 * Primer nodo del ï¿½rbol (Raiz).
 	 */
 	private BinaryNode<T> raiz;
 
 	/**
 	 * Constructor de la clase Tree
-	 * @param raiz primer nodo del árbol
+	 * @param raiz primer nodo del ï¿½rbol
 	 */
 	public Tree(BinaryNode<T> raiz) {
 		super();
@@ -34,7 +35,7 @@ public class Tree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Método que compara si un nodo es hoja del árbol o no, 
+	 * Mï¿½todo que compara si un nodo es hoja del ï¿½rbol o no, 
 	 * @param n nodo a comparar
 	 * @return devuelve true si es hoja, false en el caso contrario 
 	 */
@@ -98,17 +99,17 @@ public class Tree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Método que indica si un árbol está ordenado
-	 * @return true si lo está, flase en el caso contrario
+	 * Mï¿½todo que indica si un ï¿½rbol estï¿½ ordenado
+	 * @return true si lo estï¿½, flase en el caso contrario
 	 */
 	public boolean isOrdered(){
 		return isOrdered(raiz);	
 	}
 	
 	/**
-	 * Método que indica si un árbol está ordenado
-	 * @param n raiz del árbol
-	 * @return true si lo está, false en el caso contrario
+	 * Mï¿½todo que indica si un ï¿½rbol estï¿½ ordenado
+	 * @param n raiz del ï¿½rbol
+	 * @return true si lo estï¿½, false en el caso contrario
 	 */
 	private boolean isOrdered(BinaryNode<T> n){
 		
@@ -140,16 +141,16 @@ public class Tree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Convierte un árbol en Arraylist
-	 * @return ArrayList del árbol
+	 * Convierte un ï¿½rbol en Arraylist
+	 * @return ArrayList del ï¿½rbol
 	 */
 	public ArrayList<BinaryNode<T>> toArray(){
 		return toArray(raiz);
 	}
 	
 	/**
-	 * Convierte un árbol en Arraylist.
-	 * @param n Raiz del árbol
+	 * Convierte un ï¿½rbol en Arraylist.
+	 * @param n Raiz del ï¿½rbol
 	 * @return ArrayList del arbol
 	 */
 	private ArrayList<BinaryNode<T>> toArray(BinaryNode<T> n){
@@ -177,7 +178,7 @@ public class Tree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Inserta ordenadamente en el árbol
+	 * Inserta ordenadamente en el ï¿½rbol
 	 * @param n Nodo a insertar
 	 * @return Nodo insertado
 	 */
@@ -186,7 +187,7 @@ public class Tree<T extends Comparable<T>> {
 	}
 	
 	/**
-	 * Método usado para insertar ordenadamente en un árbol
+	 * Mï¿½todo usado para insertar ordenadamente en un ï¿½rbol
 	 * @param n nodo a ser comparado para insertar
 	 * @param n2 nodo a insertar
 	 * @return nodo insertado
@@ -210,8 +211,8 @@ public class Tree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Indica si un nodo está en el árbol
-	 * @param n Nodo a ser comparado en el árbol
+	 * Indica si un nodo estï¿½ en el ï¿½rbol
+	 * @param n Nodo a ser comparado en el ï¿½rbol
 	 * @return True si lo encuentra, false en el caso contrario
 	 */
 	public boolean contains(BinaryNode<T> n){
@@ -219,10 +220,10 @@ public class Tree<T extends Comparable<T>> {
 	}
 	
 	/**
-	 * Compara si un nodo está contenido en un árbol
+	 * Compara si un nodo estï¿½ contenido en un ï¿½rbol
 	 * @param n Nodo que es comparado
-	 * @param n2 Nodo a saber si está en el árbol
-	 * @return True si está, false en el caso contrario
+	 * @param n2 Nodo a saber si estï¿½ en el ï¿½rbol
+	 * @return True si estï¿½, false en el caso contrario
 	 */
 	private boolean contains(BinaryNode<T> n, BinaryNode<T> n2){
 		
@@ -247,4 +248,20 @@ public class Tree<T extends Comparable<T>> {
 		}		
 		return true;
 	}
+
+	public String imprimirArbol(){
+		return this.toString(new StringBuilder(), true, new StringBuilder(), raiz).toString();
+	}
+
+	private StringBuilder toString(StringBuilder prefix, boolean isTail, StringBuilder sb, BinaryNode<T> node) {
+	    if(node.getRight() !=null) {
+	        toString(new StringBuilder().append(prefix).append(isTail ? "â”‚   " : "    "), false, sb, node.getRight());
+	    }
+	    sb.append(prefix).append(isTail ? "â””â”€â”€ " : "â”Œâ”€â”€ ").append(node.getItem().toString()).append("\n");
+	    if(node.getLeft() != null) {
+	    	toString(new StringBuilder().append(prefix).append(isTail ? "    " : "â”‚   "), true, sb, node.getLeft());
+	    }
+	    return sb;
+	}
+
 }

@@ -5,5 +5,5 @@ package operaciones;
  *
  */
 public class Filtro {
-
+	
 }

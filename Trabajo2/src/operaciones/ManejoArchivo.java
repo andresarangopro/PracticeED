@@ -29,7 +29,7 @@ public class ManejoArchivo {
 		File folder = new File(direccion);
 		if (!folder.exists()) { 
 			folder.mkdir();
-			}		
+		}		
 		//if (folder.isDirectory()) {System.out.println("Es un directorio"); }		
 		//if (folder.isFile()) { System.out.println("is file"); }
 	}
