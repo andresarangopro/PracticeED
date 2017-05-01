@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import operaciones.BinaryTree;
 import operaciones.ManejoArchivo;
 
 import javax.swing.JTextField;
@@ -21,12 +22,14 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 
 public class InterfazG extends JFrame {
 	ManejoArchivo manejoArchivo = new ManejoArchivo();
 	private JPanel contentPane;
+	private BinaryTree<String> arbol = new BinaryTree<>();
 	private JTextField txtArchivo;
 	private JTextField txtPalabrasC;
 	private JTextField textField_2;
@@ -132,12 +135,24 @@ public class InterfazG extends JFrame {
 
 		ImageIcon icoBuscar = new ImageIcon("img/search-engine.png");
 		JButton btnBuscar = new JButton("");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+			}
+		});
 		btnBuscar.setBounds(213, 20, 40, 28);
 		btnBuscar.setIcon(icoBuscar);
 		panel_1.add(btnBuscar);
 
 		ImageIcon icoTree = new ImageIcon("img/hierarchy-levels(1).png");
 		JButton btnTree = new JButton("");
+		btnTree.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				GraficadoArbol graficar = new GraficadoArbol(arbol);
+				
+			}
+		});
 		btnTree.setBounds(350, 11, 63, 37);
 		btnTree.setIcon(icoTree);
 		panel_1.add(btnTree);

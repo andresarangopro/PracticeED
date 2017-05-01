@@ -181,7 +181,11 @@ public class BinaryTree<T extends Comparable<T>> {
      * @return
      */
 	public String displayTree(){
-		return this.toString(new StringBuilder(), true, new StringBuilder(), root).toString();
+		if(root != null){
+			return this.toString(new StringBuilder(), true, new StringBuilder(), root).toString();
+		}else{
+			return "Árbol vacío";
+		}
 	}	
 
 	/**
