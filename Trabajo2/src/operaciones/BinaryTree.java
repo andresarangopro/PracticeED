@@ -176,17 +176,29 @@ public class BinaryTree<T extends Comparable<T>> {
         this.root = root;
     }
     
+    /**
+     * Displays the tree in a String
+     * @return
+     */
 	public String displayTree(){
 		return this.toString(new StringBuilder(), true, new StringBuilder(), root).toString();
 	}	
 
-	private StringBuilder toString(StringBuilder prefix, boolean esDerecho, StringBuilder sb, BinaryNode<T> node) {
+	/**
+	 * 
+	 * @param prefix
+	 * @param esIzquierdo
+	 * @param sb
+	 * @param node
+	 * @return
+	 */
+	private StringBuilder toString(StringBuilder prefix, boolean esIzquierdo, StringBuilder sb, BinaryNode<T> node) {
 	    if(node.getRight() !=null) {
-	        toString(new StringBuilder().append(prefix).append(esDerecho ? "│   " : "    "), false, sb, node.getRight());
+	        toString(new StringBuilder().append(prefix).append(esIzquierdo ? "│   " : "    "), false, sb, node.getRight());
 	    }
-	    sb.append(prefix).append(esDerecho ? "└── " : "┌── ").append(node.getItem().toString()).append("\n");
+	    sb.append(prefix).append(esIzquierdo ? "└── " : "┌── ").append(node.getItem().toString()).append("\n");
 	    if(node.getLeft() != null) {
-	    	toString(new StringBuilder().append(prefix).append(esDerecho ? "    " : "│   "), true, sb, node.getLeft());
+	    	toString(new StringBuilder().append(prefix).append(esIzquierdo ? "    " : "│   "), true, sb, node.getLeft());
 	    }
 	    return sb;
 	}
