@@ -94,7 +94,7 @@ public class BinaryNode<T extends Comparable<T>> implements Comparable<BinaryNod
     	String elementos = "";
     	
     	for (int i = 0; i < archivos.size(); i++) {
-			elementos += archivos.get(i);
+			elementos += archivos.get(i) + "\n";
 		}
     	
     	return elementos;    	

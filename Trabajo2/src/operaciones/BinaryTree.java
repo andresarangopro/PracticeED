@@ -211,4 +211,13 @@ public class BinaryTree<T extends Comparable<T>> {
 	    return sb;
 	}
     
+	public String buscarPalabra(T item){
+		
+		BinaryNode<T> comparar = findNode(item);
+		
+		if(comparar == null) return "No se encuentran elementos con esta etiqueta";
+		else{
+			return comparar.elementos();
+		}
+	}	
 }
