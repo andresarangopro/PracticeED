@@ -15,35 +15,39 @@ public class BinaryTree<T extends Comparable<T>> {
     
     private BinaryNode<T> root;
     
-    public BinaryTree() {
-    }
+    public BinaryTree() {}
     
     public void insert(T item) {
-        BinaryNode<T> newNode = new BinaryNode<>(null, null, item);
-        
-        if(root == null) {
-            root = newNode;
-            return;
-        }
-        
-        BinaryNode<T> current = root;
-        BinaryNode<T> parent = root;
-        boolean isLeft = false;
-        while(current != null) {
-            parent = current;
-            if(current.compareTo(newNode) > 0) {
-                current = current.getLeft();
-                isLeft = true;
-            } else {
-                current = current.getRight();
-                isLeft = false;
+        BinaryNode<T> comparar = findNode(item);
+    	if(comparar == null){
+        	BinaryNode<T> newNode = new BinaryNode<>(null, null, item);
+            
+            if(root == null) {
+                root = newNode;
+                return;
             }
-        }
-        if(isLeft) {
-            parent.setLeft(newNode);
-        } else {
-            parent.setRight(newNode);
-        }
+            
+            BinaryNode<T> current = root;
+            BinaryNode<T> parent = root;
+            boolean isLeft = false;
+            while(current != null) {
+                parent = current;
+                if(current.compareTo(newNode) > 0) {
+                    current = current.getLeft();
+                    isLeft = true;
+                } else {
+                    current = current.getRight();
+                    isLeft = false;
+                }
+            }
+            if(isLeft) {
+                parent.setLeft(newNode);
+            } else {
+                parent.setRight(newNode);
+            }
+    	}else{
+    		comparar.agregarANodo(item);
+    	}
     }
     
     public boolean findItem(T item) {

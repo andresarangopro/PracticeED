@@ -5,6 +5,8 @@
  */
 package operaciones;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ochoscar
@@ -16,6 +18,8 @@ public class BinaryNode<T extends Comparable<T>> implements Comparable<BinaryNod
     private BinaryNode<T> right;
     
     private T item;
+    
+    ArrayList<T> archivos = new ArrayList<>();
     
     public BinaryNode() {
     }
@@ -78,4 +82,22 @@ public class BinaryNode<T extends Comparable<T>> implements Comparable<BinaryNod
         this.item = item;
     }
 
+    public int tamaño(){
+    	return archivos.size();
+    }
+    
+    public void agregarANodo(T item){
+    	archivos.add(item);
+    }
+    
+    public String elementos(){
+    	String elementos = "";
+    	
+    	for (int i = 0; i < archivos.size(); i++) {
+			elementos += archivos.get(i);
+		}
+    	
+    	return elementos;    	
+    }
+    
 }

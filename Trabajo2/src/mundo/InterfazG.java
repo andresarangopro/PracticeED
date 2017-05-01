@@ -105,6 +105,9 @@ public class InterfazG extends JFrame {
 						try {
 							manejoArchivo.crearDirectorio(direccion2);
 							manejoArchivo.add(direccion, direccion2);
+							
+							//TODO: La inserción toca cambiarla por las palabras claves tokenizadas
+							arbol.insert(direccion2);
 							txtArchivo.setText("");
 							txtPalabrasC.setText("");
 							JOptionPane.showMessageDialog(null,"Archivo agregado con exito!");
@@ -139,6 +142,7 @@ public class InterfazG extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				
+				
 			}
 		});
 		btnBuscar.setBounds(213, 20, 40, 28);
@@ -149,8 +153,7 @@ public class InterfazG extends JFrame {
 		JButton btnTree = new JButton("");
 		btnTree.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				GraficadoArbol graficar = new GraficadoArbol(arbol);
-				
+				GraficadoArbol graficar = new GraficadoArbol(arbol);	
 			}
 		});
 		btnTree.setBounds(350, 11, 63, 37);
