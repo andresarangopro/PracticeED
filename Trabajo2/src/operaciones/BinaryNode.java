@@ -1,116 +1,81 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package operaciones;
 
 /**
- * Hojas del arb�l en las cuales se almacenan cada uno de los items
- * @author Sebastian Luna R
  *
- * @param <T> Par�metro para definir el tipo del �rbol, debe de ser tipo Comparable
+ * @author ochoscar
  */
 public class BinaryNode<T extends Comparable<T>> implements Comparable<BinaryNode<T>> {
+    
+    private BinaryNode<T> left;
+    
+    private BinaryNode<T> right;
+    
+    private T item;
+    
+    public BinaryNode() {
+    }
+    
+    public BinaryNode(BinaryNode<T> left, BinaryNode<T> right, T item) {
+        this.left = left;
+        this.right = right;
+        this.item = item;
+    }
+    
+    @Override
+    public String toString() {
+        return item.toString();
+    }
+    
+    @Override
+    public int compareTo(BinaryNode<T> o) {
+        return this.item.compareTo(o.getItem());
+    }
+    
+    /**
+     * @return the left
+     */
+    public BinaryNode<T> getLeft() {
+        return left;
+    }
 
-	/**
-	 * Hijo izquierdo
-	 */
-	private BinaryNode<T> left;
+    /**
+     * @param left the left to set
+     */
+    public void setLeft(BinaryNode<T> left) {
+        this.left = left;
+    }
 
-	/**
-	 * Hijo derecho
-	 */
-	private BinaryNode<T> right;
+    /**
+     * @return the right
+     */
+    public BinaryNode<T> getRight() {
+        return right;
+    }
 
-	/**
-	 * Contenido del nodo
-	 */
-	private T item;
+    /**
+     * @param right the right to set
+     */
+    public void setRight(BinaryNode<T> right) {
+        this.right = right;
+    }
 
-	/**
-	 * Constructor de la clase nodo
-	 * @param left hijo izquierdo
-	 * @param right hijo derecho
-	 * @param item Contenido del nodo
-	 */
-	public BinaryNode(BinaryNode<T> left, BinaryNode<T> right, T item) {
-		super();
-		this.left = left;
-		this.right = right;
-		this.item = item;
-	}
+    /**
+     * @return the item
+     */
+    public T getItem() {
+        return item;
+    }
 
-	//////////////////////////////////////////////
-	//////Getters y Setters
-	/////////////////////////////////////////////
-	/**
-	 * Obtiene el hijo izquierdo
-	 * @return
-	 */
-	public BinaryNode<T> getLeft() {
-		return left;
-	}
-	
-	/**
-	 * Modifica el hijo izquierdo
-	 * @param left nuevo hijo izquierdo
-	 */
-	public void setLeft(BinaryNode<T> left) {
-		this.left = left;
-	}
+    /**
+     * @param item the item to set
+     */
+    public void setItem(T item) {
+        this.item = item;
+    }
 
-	/**
-	 * Obtiene hijo derecho
-	 * @return right hijo derecho
-	 */
-	public BinaryNode<T> getRight() {
-		return right;
-	}
-
-	/**
-	 * Modifica el hijo derecho
-	 * @param right nuevo hijo derecho 
-	 */
-	public void setRight(BinaryNode<T> right) {
-		this.right = right;
-	}
-	
-	/**
-	 * Obtiene contenido del nodo
-	 * @return contenido del nodo
-	 */
-	public T getItem() {
-		return item;
-	}
-	
-	/**
-	 * Modifica item del nodo
-	 * @param item Nuevo contenido
-	 */
-	public void setItem(T item) {
-		this.item = item;
-	}
-
-	
-	///////////////////////////////////////
-	///////M�todos
-	///////////////////////////////////////
-	/**
-	 * Compara un nodo con otro nodo.
-	 * devuelve 0 si son iguales, 1 si es mayor y -1 si es menor.
-	 */
-	@Override
-	public int compareTo(BinaryNode<T> o) {
-
-		if (this.item.compareTo(o.getItem()) > 0) {
-			return 1;
-		} else if (this.item.compareTo(o.getItem()) == 0) {
-			return 0;
-		} else
-			return -1;
-	}
-	
-	/**
-	 * M�todo encargado de imprimir el contenido del nodo
-	 */
-	@Override
-	public String toString() {
-		return "" + item.toString() + "";
-	}
 }
