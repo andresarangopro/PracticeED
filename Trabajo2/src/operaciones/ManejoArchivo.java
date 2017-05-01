@@ -21,10 +21,11 @@ public class ManejoArchivo {
 	//Metodos
 	//////////////////////	
 	
-	/**
+	/*********************************************************
 	 * 
 	 * @param direccion
-	 */
+	 **********************************************************/
+	
 	public void crearDirectorio(String direccion){
 		File folder = new File(direccion);
 		if (!folder.exists()) { 
@@ -34,11 +35,12 @@ public class ManejoArchivo {
 		//if (folder.isFile()) { System.out.println("is file"); }
 	}
 	
-	/**
+	/************************************************************
 	 * 
 	 * @param txtArchivo
 	 * @return
-	 */
+	 *************************************************************/
+	
 	public String leerArchivo(JTextField txtArchivo){		
 		JFileChooser fileChooser = new JFileChooser();
 		String dir = "";
@@ -52,11 +54,12 @@ public class ManejoArchivo {
 		return dir;	
 	}
 	
-	/**
+	/*************************************************************************
 	 * copia el archivo s en otro directorio siendo este el archivo t
 	 * @param s
 	 * @param t
-	 */
+	 *************************************************************************/
+	
     public void copyFile(File s, File t)
     {
         try{
@@ -72,11 +75,12 @@ public class ManejoArchivo {
         }
     }
     
-    /**
+    /****************************************************************
      * 
      * @param direccion del archivo seleccionado
      * @param direccion2 es la direccion donde se copiará el archivo
-     */
+     *****************************************************************/
+    
     public void add(String direccion, String direccion2){
     	String a = "";
     	String nombreD = "";
@@ -94,5 +98,16 @@ public class ManejoArchivo {
 		File fOut = new File(direccion2+name+"_"+nombreD+extencion);
 		copyFile(fIn, fOut);
     }
-
+    
+    /*******************************************************
+     * Metodo que tokeniza un string por espacios 
+     * retornando un arreglo con las palabras
+     * @param palabras string a tokenizar
+     * @return Arreglo con palabras tokenizadas
+     *********************************************************/
+    
+    public String[] tokenizarKeys(String palabras){
+    	String[] keys = palabras.split(" ");
+    	return keys;
+    }
 }

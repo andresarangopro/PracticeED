@@ -82,7 +82,7 @@ public class BinaryNode<T extends Comparable<T>> implements Comparable<BinaryNod
         this.item = item;
     }
 
-    public int tamaño(){
+    public int tamano(){
     	return archivos.size();
     }
     

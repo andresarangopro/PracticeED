@@ -105,7 +105,7 @@ public class InterfazG extends JFrame {
 						try {
 							manejoArchivo.crearDirectorio(direccion2);
 							manejoArchivo.add(direccion, direccion2);
-							
+						
 							//TODO: La inserción toca cambiarla por las palabras claves tokenizadas
 							arbol.insert(direccion2);
 							txtArchivo.setText("");
