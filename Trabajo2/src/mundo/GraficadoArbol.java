@@ -10,13 +10,13 @@ import operaciones.BinaryTree;
 import java.awt.Font;
 
 import javax.swing.JFormattedTextField;
+import java.awt.Color;
 
 public class GraficadoArbol {
 
 	private JFrame frame;
 	
 	private String arbolGraficado;
-	private final JTextArea textArea = new JTextArea();
 
 	/**
 	 * Create the application.
@@ -32,12 +32,14 @@ public class GraficadoArbol {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setResizable(false);
-
 		
-		textArea.setText(arbolGraficado);
-		textArea.setFont(new Font("Monospaced", Font.PLAIN, 13));
-		textArea.setEditable(false);
-		frame.getContentPane().add(new JScrollPane(textArea));
+		JTextArea ta = new JTextArea(15, 25);
+		ta.setForeground(Color.BLACK);
+		ta.setEditable(false);
+		ta.setText(arbolGraficado);
+		ta.setFont(new Font("Monospaced", Font.BOLD, 13));
+		JFrame frame = new JFrame();
+		frame.getContentPane().add(new JScrollPane(ta));
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);

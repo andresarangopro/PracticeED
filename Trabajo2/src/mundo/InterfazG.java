@@ -109,7 +109,7 @@ public class InterfazG extends JFrame {
 							String[] palabrasClave = manejoArchivo.tokenizarKeys(txtPalabrasC.getText());
 							
 							for (int i = 0; i < palabrasClave.length; i++) {
-								arbol.insert(palabrasClave[i]);
+								arbol.insert(palabrasClave[i], direccion2);
 							}
 														
 							txtArchivo.setText("");

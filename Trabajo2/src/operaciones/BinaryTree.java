@@ -5,6 +5,8 @@
  */
 package operaciones;
 
+import java.util.ArrayList;
+
 
 /**
  *
@@ -16,7 +18,7 @@ public class BinaryTree<T extends Comparable<T>> {
     
     public BinaryTree() {}
     
-    public void insert(T item) {
+    public void insert(T item, String archivo) {
         BinaryNode<T> comparar = findNode(item);
     	if(comparar == null){
         	BinaryNode<T> newNode = new BinaryNode<>(null, null, item);
@@ -44,9 +46,16 @@ public class BinaryTree<T extends Comparable<T>> {
             } else {
                 parent.setRight(newNode);
             }
+            agregarALista(newNode, archivo);
     	}else{
-    		comparar.agregarANodo(item);
+    		agregarALista(comparar, archivo);
     	}
+    	
+    	
+    }
+    
+    private void agregarALista(BinaryNode<T> nodo, String archivo){
+    	nodo.agregarANodo(archivo);
     }
     
     public boolean findItem(T item) {
@@ -200,6 +209,7 @@ public class BinaryTree<T extends Comparable<T>> {
 	 * @return
 	 */
 	private StringBuilder toString(StringBuilder prefix, boolean esIzquierdo, StringBuilder sb, BinaryNode<T> node) {
+		System.out.println(node.getItem() + ": "+node.elementos());
 	    if(node.getRight() !=null) {
 	        toString(new StringBuilder().append(prefix).append(esIzquierdo ? "│   " : "    "), false, sb, node.getRight());
 	    }
@@ -210,6 +220,11 @@ public class BinaryTree<T extends Comparable<T>> {
 	    return sb;
 	}
     
+	/**
+	 * Busca en el árbol la palabra clave a encontrar
+	 * @param item palabra a buscar
+	 * @return lista de elementos en el nodo.
+	 */
 	public String buscarPalabra(T item){
 		
 		BinaryNode<T> comparar = findNode(item);
@@ -218,5 +233,48 @@ public class BinaryTree<T extends Comparable<T>> {
 		else{
 			return comparar.elementos();
 		}
-	}	
+	}
+	
+	/**
+	 * Permite editar las palabras clave asociadas a un archivo
+	 * @param item palabra clave anterior
+	 * @param archivo Archivo a ser cambiado de palabra clave
+	 */
+	public void eliminarArchivo(String archivo){
+		
+		inOrderDel(root, archivo);
+		
+	}
+	
+	/**
+	 * Elimina un archivo de todas sus apariciones en un árbol
+	 * @param n nodo en el cuál se buscará el archivo
+	 * @param archivo archivo a ser eliminado
+	 */
+	private void inOrderDel(BinaryNode<T> n, String archivo) {
+
+		ArrayList<String> temp = n.getArchivos();
+		
+		if(recorrerArray(temp, archivo)){
+			n.deleteFromArray(archivo);
+			
+		}else{
+			if (n.getLeft() != null)
+				this.inOrderDel(n.getLeft(), null);
+			
+			if (n.getRight() != null)
+				this.inOrderDel(n.getRight(), null);
+		}
+	}
+	
+	private boolean recorrerArray(ArrayList<String> array, String archivo){
+		for (String string : array) {
+			if(archivo.equals(string)){
+				return true;
+			}
+		}
+		return false;
+		
+	}
+	
 }
