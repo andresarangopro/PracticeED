@@ -5,7 +5,6 @@
  */
 package operaciones;
 
-import java.util.Stack;
 
 /**
  *

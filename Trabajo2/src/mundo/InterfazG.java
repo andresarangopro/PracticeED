@@ -32,7 +32,7 @@ public class InterfazG extends JFrame {
 	private BinaryTree<String> arbol = new BinaryTree<>();
 	private JTextField txtArchivo;
 	private JTextField txtPalabrasC;
-	private JTextField textField_2;
+	private JTextField TBpalabraABuscar;
 	private String direccion = "";
 	private String direccion2 = "C:\\Nueva carpeta\\";
 
@@ -135,10 +135,10 @@ public class InterfazG extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
-		textField_2 = new JTextField();
-		textField_2.setBounds(35, 20, 169, 28);
-		panel_1.add(textField_2);
-		textField_2.setColumns(10);
+		TBpalabraABuscar = new JTextField();
+		TBpalabraABuscar.setBounds(35, 20, 169, 28);
+		panel_1.add(TBpalabraABuscar);
+		TBpalabraABuscar.setColumns(10);
 
 		ImageIcon icoBuscar = new ImageIcon("img/search-engine.png");
 		JButton btnBuscar = new JButton("");
@@ -146,7 +146,8 @@ public class InterfazG extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				
-				
+				JOptionPane.showMessageDialog(null,arbol.buscarPalabra(TBpalabraABuscar.getText()));
+
 			}
 		});
 		btnBuscar.setBounds(213, 20, 40, 28);
