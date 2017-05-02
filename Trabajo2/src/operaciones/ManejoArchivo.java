@@ -78,10 +78,9 @@ public class ManejoArchivo {
     /****************************************************************
      * 
      * @param direccion del archivo seleccionado
-     * @param direccion2 es la direccion donde se copiará el archivo
+     * @param direccion2 es la direccion donde se copiarï¿½ el archivo
      *****************************************************************/
-    
-    public void add(String direccion, String direccion2){
+    public String add(String direccion, String direccion2){
     	String a = "";
     	String nombreD = "";
     	String[] p = direccion.split("\\\\");
@@ -97,6 +96,7 @@ public class ManejoArchivo {
 		String name = System.currentTimeMillis()+"";
 		File fOut = new File(direccion2+name+"_"+nombreD+extencion);
 		copyFile(fIn, fOut);
+		return direccion2+name+"_"+nombreD+extencion;
     }
     
     /*******************************************************

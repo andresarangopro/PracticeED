@@ -104,12 +104,10 @@ public class InterfazG extends JFrame {
 					if(!txtPalabrasC.getText().toString().equals("") && txtPalabrasC.getText() != null){
 						try {
 							manejoArchivo.crearDirectorio(direccion2);
-							manejoArchivo.add(direccion, direccion2);
-							
+							String nombre = manejoArchivo.add(direccion, direccion2);
 							String[] palabrasClave = manejoArchivo.tokenizarKeys(txtPalabrasC.getText());
-							
 							for (int i = 0; i < palabrasClave.length; i++) {
-								arbol.insert(palabrasClave[i], direccion2);
+								arbol.insert(palabrasClave[i], nombre);
 							}
 														
 							txtArchivo.setText("");
