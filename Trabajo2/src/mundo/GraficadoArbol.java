@@ -1,27 +1,29 @@
 package mundo;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import operaciones.BinaryTree;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+
+import java.awt.Font;
+
+import javax.swing.JFormattedTextField;
 
 public class GraficadoArbol {
 
 	private JFrame frame;
 	
 	private String arbolGraficado;
+	private final JTextArea textArea = new JTextArea();
 
 	/**
 	 * Create the application.
 	 */
 	public GraficadoArbol(BinaryTree<String> arbol) {
 		arbolGraficado = arbol.displayTree();
-		initialize();
-		frame.setVisible(true);
-		
+		initialize();		
 	}
 
 	/**
@@ -29,15 +31,16 @@ public class GraficadoArbol {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frame.setResizable(false);
+
 		
-		JLabel lblArbol = new JLabel("Arbol");
-		lblArbol.setVerticalAlignment(SwingConstants.TOP);
-		lblArbol.setBounds(0, 0, 434, 261);
-		lblArbol.setText(arbolGraficado);
-		frame.getContentPane().add(lblArbol);
+		textArea.setText(arbolGraficado);
+		textArea.setFont(new Font("Monospaced", Font.PLAIN, 13));
+		textArea.setEditable(false);
+		frame.getContentPane().add(new JScrollPane(textArea));
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
 		
 	}
 }
