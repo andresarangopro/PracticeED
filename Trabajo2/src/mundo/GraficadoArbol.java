@@ -9,13 +9,18 @@ import operaciones.BinaryTree;
 
 import java.awt.Font;
 
-import javax.swing.JFormattedTextField;
 import java.awt.Color;
 
 public class GraficadoArbol {
 
+	/**
+	 * Cuadro en donde se mostrará el árbol.
+	 */
 	private JFrame frame;
 	
+	/**
+	 * String que contiene el árbol.
+	 */
 	private String arbolGraficado;
 
 	/**

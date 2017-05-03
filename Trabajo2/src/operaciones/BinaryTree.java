@@ -242,9 +242,7 @@ public class BinaryTree<T extends Comparable<T>> {
 	 * @param archivo Archivo a ser cambiado de palabra clave
 	 */
 	public void eliminarArchivo(String archivo){
-		
-		inOrderDel(root, archivo);
-		
+		inOrderDel(root, archivo);		
 	}
 	
 	/**
@@ -253,12 +251,9 @@ public class BinaryTree<T extends Comparable<T>> {
 	 * @param archivo archivo a ser eliminado
 	 */
 	private void inOrderDel(BinaryNode<T> n, String archivo) {
-
-		ArrayList<String> temp = n.getArchivos();
 		
-		if(recorrerArray(temp, archivo)){
-			n.deleteFromArray(archivo);
-			
+		if(n.encotrarEnArreglo(archivo)){
+			n.deleteFromArray(archivo);			
 		}else{
 			if (n.getLeft() != null)
 				this.inOrderDel(n.getLeft(), null);
@@ -266,16 +261,5 @@ public class BinaryTree<T extends Comparable<T>> {
 			if (n.getRight() != null)
 				this.inOrderDel(n.getRight(), null);
 		}
-	}
-	
-	private boolean recorrerArray(ArrayList<String> array, String archivo){
-		for (String string : array) {
-			if(archivo.equals(string)){
-				return true;
-			}
-		}
-		return false;
-		
-	}
-	
+	}	
 }
