@@ -142,8 +142,7 @@ public class InterfazG extends JFrame {
 		JButton btnBuscar = new JButton("");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				
+				//TODO: Cambiar a Jtable esto
 				JOptionPane.showMessageDialog(null,arbol.buscarPalabra(TBpalabraABuscar.getText()));
 
 			}

@@ -25,6 +25,7 @@ public class BinaryTree<T extends Comparable<T>> {
             
             if(root == null) {
                 root = newNode;
+                agregarALista(newNode, archivo);
                 return;
             }
             
