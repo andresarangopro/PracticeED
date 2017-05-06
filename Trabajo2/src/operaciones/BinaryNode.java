@@ -113,6 +113,24 @@ public class BinaryNode<T extends Comparable<T>> implements Comparable<BinaryNod
     	
     	return elementos;    	
     }
+    
+    /**
+     * Devuelve una lista con todos los elementos existentes en el nodo;
+     * @return String con todos los elementos
+     */
+    public String elementosForFile(){
+    	String elementos = "";
+    	
+    	for (int i = 0; i < archivos.size(); i++) {
+			if(i+1 < archivos.size()){
+				elementos += archivos.get(i) + ",";
+			}else{
+				elementos += archivos.get(i) ;
+			}
+		}
+    	
+    	return elementos;    	
+    }
 
     /**
      * Busca un elemento en el arreglo

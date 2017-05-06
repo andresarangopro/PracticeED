@@ -7,10 +7,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import operaciones.BinaryNode;
 import operaciones.BinaryTree;
 import operaciones.ManejoArchivo;
 
 import javax.swing.JTextField;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -19,32 +21,47 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import java.awt.Desktop;
+
+import javax.swing.border.MatteBorder;
 
 public class InterfazG extends JFrame {
-	ManejoArchivo manejoArchivo = new ManejoArchivo();
+	
+	public  ManejoArchivo manejoArchivo = new ManejoArchivo();
 	private JPanel contentPane;
-	private BinaryTree<String> arbol = new BinaryTree<>();
+	public BinaryTree<String> arbol = new BinaryTree<>();
 	private JTextField txtArchivo;
 	private JTextField txtPalabrasC;
 	private JTextField TBpalabraABuscar;
 	private String direccion = "";
 	private String direccion2 = "C:\\Nueva carpeta\\";
+	private DefaultListModel<String> model = new DefaultListModel<>();
+	private JList<String> list = new JList<>(model);
+	public WindowsListener wl;
+	public File fileTree = manejoArchivo.crearArchivo("fileTree");
+	public File fileList = manejoArchivo.crearArchivo("fileList");
 
-	/**
+	/*****************************
 	 * Launch the application.
-	 */
+	 *****************************/
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					InterfazG frame = new InterfazG();
-					frame.setVisible(true);
+					frame.setVisible(true);			
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -56,8 +73,11 @@ public class InterfazG extends JFrame {
 	 * Create the frame.
 	 */
 	public InterfazG() {
+		 wl = new WindowsListener(this);
+		this.addWindowListener(wl);
+		//wl.windowClosed();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 530, 528);
+		setBounds(100, 100, 582, 528);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -65,23 +85,25 @@ public class InterfazG extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		panel.setBounds(10, 0, 494, 147);
+		panel.setBounds(10, 0, 546, 147);
 		contentPane.add(panel);
 
 		txtArchivo = new JTextField();
 		txtArchivo.setForeground(SystemColor.inactiveCaptionText);
 		txtArchivo.setEnabled(false);
 		txtArchivo.setColumns(10);
-		txtArchivo.setBounds(58, 10, 381, 28);
+		txtArchivo.setBounds(58, 10, 418, 28);
 		panel.add(txtArchivo);
-		JButton button = new JButton("...");
+		JButton button = new JButton("");
+		ImageIcon icoB = new ImageIcon("img/documento.png");
+		button.setIcon(icoB);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				direccion = manejoArchivo.leerArchivo(txtArchivo);
 			}
 
 		});
-		button.setBounds(449, 10, 35, 28);
+		button.setBounds(486, 10, 35, 28);
 		panel.add(button);
 
 		JLabel lblArchivo = new JLabel("Archivo");
@@ -94,14 +116,14 @@ public class InterfazG extends JFrame {
 
 		txtPalabrasC = new JTextField();
 		txtPalabrasC.setColumns(10);
-		txtPalabrasC.setBounds(58, 56, 381, 28);
+		txtPalabrasC.setBounds(58, 56, 418, 28);
 		panel.add(txtPalabrasC);
 
 		JButton btnAdd = new JButton("AGREGAR");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(!txtArchivo.getText().toString().equals("") && txtArchivo.getText() != null){
-					if(!txtPalabrasC.getText().toString().equals("") && txtPalabrasC.getText() != null){
+				if (!txtArchivo.getText().toString().equals("") && txtArchivo.getText() != null) {
+					if (!txtPalabrasC.getText().toString().equals("") && txtPalabrasC.getText() != null) {
 						try {
 							manejoArchivo.crearDirectorio(direccion2);
 							String nombre = manejoArchivo.add(direccion, direccion2);
@@ -109,27 +131,27 @@ public class InterfazG extends JFrame {
 							for (int i = 0; i < palabrasClave.length; i++) {
 								arbol.insert(palabrasClave[i], nombre);
 							}
-														
+								
 							txtArchivo.setText("");
 							txtPalabrasC.setText("");
-							JOptionPane.showMessageDialog(null,"Archivo agregado con exito!");
+							JOptionPane.showMessageDialog(null, "Archivo agregado con exito!");
 						} catch (Exception e2) {
-							JOptionPane.showMessageDialog(null,e2);
-						}	
-					}else{
-						JOptionPane.showMessageDialog(null,"Las palabras claves son necesarias");
+							JOptionPane.showMessageDialog(null, e2);
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "Las palabras claves son necesarias");
 					}
-				}else{
-					JOptionPane.showMessageDialog(null,"No ha seleccionado ningun archivo");
+				} else {
+					JOptionPane.showMessageDialog(null, "No ha seleccionado ningun archivo");
 				}
-				
+
 			}
 		});
 		btnAdd.setBounds(199, 102, 119, 34);
 		panel.add(btnAdd);
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 149, 494, 59);
+		panel_1.setBounds(10, 149, 546, 59);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
@@ -142,9 +164,21 @@ public class InterfazG extends JFrame {
 		JButton btnBuscar = new JButton("");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TODO: Cambiar a Jtable esto
-				JOptionPane.showMessageDialog(null,arbol.buscarPalabra(TBpalabraABuscar.getText()));
-
+				// TODO: Cambiar a Jtable esto
+				model.clear();
+				list.setModel(model);
+				String wordKey = "";
+				int pos = 0; 
+				if (arbol.buscarPalabra(TBpalabraABuscar.getText()).equalsIgnoreCase("No se encuentran elementos con esta etiqueta")) {
+					JOptionPane.showMessageDialog(null, arbol.buscarPalabra(TBpalabraABuscar.getText()));
+				} else {
+					wordKey = arbol.buscarPalabra(TBpalabraABuscar.getText());
+					String[] ar = manejoArchivo.nextTounderScore(wordKey);
+					for (int i = 0; i < ar.length; i++) {
+						model.addElement(ar[i]);
+					}
+				}
+				list.setModel(model);
 			}
 		});
 		btnBuscar.setBounds(213, 20, 40, 28);
@@ -155,10 +189,11 @@ public class InterfazG extends JFrame {
 		JButton btnTree = new JButton("");
 		btnTree.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				GraficadoArbol graficar = new GraficadoArbol(arbol);	
+				//System.out.println(arbol.levelOrder()+"");
+				GraficadoArbol graficar = new GraficadoArbol(arbol);
 			}
 		});
-		btnTree.setBounds(350, 11, 63, 37);
+		btnTree.setBounds(381, 0, 71, 59);
 		btnTree.setIcon(icoTree);
 		panel_1.add(btnTree);
 
@@ -167,8 +202,26 @@ public class InterfazG extends JFrame {
 		contentPane.add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 
-		JList list = new JList();
+		list = new JList();
+		list.setBorder(new CompoundBorder(new CompoundBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)), null), null));
 		panel_2.add(list, BorderLayout.CENTER);
+		
+		ImageIcon icoOpen = new ImageIcon("img/carpeta.png");
+		JButton btnOpen = new JButton("");
+		btnOpen.setBounds(514, 219, 42, 39);
+		btnOpen.setIcon(icoOpen);
+		contentPane.add(btnOpen);
+	
+		ImageIcon icoEdit = new ImageIcon("img/lapiz.png");
+		JButton btnEditar = new JButton("");
+		btnEditar.setBounds(514, 269, 42, 39);
+		btnEditar.setIcon(icoEdit);
+		contentPane.add(btnEditar);
+		
+		ImageIcon icoDelete = new ImageIcon("img/basura.png");
+		JButton btnEliminar = new JButton("");
+		btnEliminar.setBounds(514, 319, 42, 39);
+		btnEliminar.setIcon(icoDelete);
+		contentPane.add(btnEliminar);
 	}
-
 }
