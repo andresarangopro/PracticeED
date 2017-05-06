@@ -38,8 +38,8 @@ import java.awt.Desktop;
 import javax.swing.border.MatteBorder;
 
 public class InterfazG extends JFrame {
-	
-	public  ManejoArchivo manejoArchivo = new ManejoArchivo();
+
+	public ManejoArchivo manejoArchivo = new ManejoArchivo();
 	private JPanel contentPane;
 	public BinaryTree<String> arbol = new BinaryTree<>();
 	private JTextField txtArchivo;
@@ -50,6 +50,7 @@ public class InterfazG extends JFrame {
 	private DefaultListModel<String> model = new DefaultListModel<>();
 	private JList<String> list = new JList<>(model);
 	public WindowsListener wl;
+	private String search = "";
 	public File fileTree = manejoArchivo.crearArchivo("fileTree");
 	public File fileList = manejoArchivo.crearArchivo("fileList");
 
@@ -61,7 +62,7 @@ public class InterfazG extends JFrame {
 			public void run() {
 				try {
 					InterfazG frame = new InterfazG();
-					frame.setVisible(true);			
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -73,9 +74,9 @@ public class InterfazG extends JFrame {
 	 * Create the frame.
 	 */
 	public InterfazG() {
-		 wl = new WindowsListener(this);
+		wl = new WindowsListener(this);
 		this.addWindowListener(wl);
-		//wl.windowClosed();
+		// wl.windowClosed();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 582, 528);
 		contentPane = new JPanel();
@@ -121,9 +122,8 @@ public class InterfazG extends JFrame {
 
 		JButton btnAdd = new JButton("AGREGAR");
 		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {		
-			
-				
+			public void actionPerformed(ActionEvent e) {
+
 				if (!txtArchivo.getText().toString().equals("") && txtArchivo.getText() != null) {
 					if (!txtPalabrasC.getText().toString().equals("") && txtPalabrasC.getText() != null) {
 						try {
@@ -133,7 +133,7 @@ public class InterfazG extends JFrame {
 							for (int i = 0; i < palabrasClave.length; i++) {
 								arbol.insert(palabrasClave[i], nombre);
 							}
-								
+
 							txtArchivo.setText("");
 							txtPalabrasC.setText("");
 							JOptionPane.showMessageDialog(null, "Archivo agregado con exito!");
@@ -170,15 +170,13 @@ public class InterfazG extends JFrame {
 				model.clear();
 				list.setModel(model);
 				String wordKey = "";
-				int pos = 0; 
-				if (arbol.buscarPalabra(TBpalabraABuscar.getText()).equalsIgnoreCase("No se encuentran elementos con esta etiqueta")) {
+				int pos = 0;
+				if (arbol.buscarPalabra(TBpalabraABuscar.getText())
+						.equalsIgnoreCase("No se encuentran elementos con esta etiqueta")) {
 					JOptionPane.showMessageDialog(null, arbol.buscarPalabra(TBpalabraABuscar.getText()));
 				} else {
-					wordKey = arbol.buscarPalabra(TBpalabraABuscar.getText());
-					String[] ar = manejoArchivo.nextTounderScore(wordKey);
-					for (int i = 0; i < ar.length; i++) {
-						model.addElement(ar[i]);
-					}
+					search = TBpalabraABuscar.getText();
+					actualizarList();
 				}
 				list.setModel(model);
 			}
@@ -191,7 +189,7 @@ public class InterfazG extends JFrame {
 		JButton btnTree = new JButton("");
 		btnTree.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//System.out.println(arbol.levelOrder()+"");
+				// System.out.println(arbol.levelOrder()+"");
 				GraficadoArbol graficar = new GraficadoArbol(arbol);
 			}
 		});
@@ -205,32 +203,59 @@ public class InterfazG extends JFrame {
 		panel_2.setLayout(new BorderLayout(0, 0));
 
 		list = new JList();
-		list.setBorder(new CompoundBorder(new CompoundBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)), null), null));
+		list.setBorder(new CompoundBorder(
+				new CompoundBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)), null), null));
 		panel_2.add(list, BorderLayout.CENTER);
-		
+
 		ImageIcon icoOpen = new ImageIcon("img/carpeta.png");
 		JButton btnOpen = new JButton("");
 		btnOpen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String wordKey = arbol.findNode(TBpalabraABuscar.getText()).elementosForFile();
-				String[] ar = wordKey.split(",");	
-				manejoArchivo.openFile(ar[list.getSelectedIndex()]);
+				int pos = list.getSelectedIndex();
+				if (pos >= 0) {
+					String wordKey = arbol.findNode(search).elementosForFile();
+					String[] ar = wordKey.split(",");
+					manejoArchivo.openFile(ar[pos]);
+				}
 			}
 		});
 		btnOpen.setBounds(514, 219, 42, 39);
 		btnOpen.setIcon(icoOpen);
 		contentPane.add(btnOpen);
-	
+
 		ImageIcon icoEdit = new ImageIcon("img/lapiz.png");
 		JButton btnEditar = new JButton("");
 		btnEditar.setBounds(514, 269, 42, 39);
 		btnEditar.setIcon(icoEdit);
 		contentPane.add(btnEditar);
-		
+
 		ImageIcon icoDelete = new ImageIcon("img/basura.png");
 		JButton btnEliminar = new JButton("");
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int pos = list.getSelectedIndex();
+				if (pos >= 0) {
+					String wordKey = arbol.findNode(search).elementosForFile();
+					String[] ar = wordKey.split(",");
+					System.out.println(arbol.findNode(search).encotrarEnArreglo(ar[pos])+" "+arbol.getRoot().getItem().toString());
+					arbol.eliminarALvl(ar[pos]);
+					manejoArchivo.deleteFile(ar[pos]);
+					if (ar.length <= 1) arbol.delete(search);								
+				}				
+				actualizarList();
+			}
+		});
 		btnEliminar.setBounds(514, 319, 42, 39);
 		btnEliminar.setIcon(icoDelete);
 		contentPane.add(btnEliminar);
+	}
+	
+	public void actualizarList(){
+		String wordKey = arbol.buscarPalabra(TBpalabraABuscar.getText());
+		String [] ar = manejoArchivo.nextTounderScore(wordKey);
+		model.clear();
+		for (int i = 0; i < ar.length; i++) {
+			model.addElement(ar[i]);
+		}
 	}
 }

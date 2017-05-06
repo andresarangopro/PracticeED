@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 import java.nio.channels.FileChannel;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -200,10 +201,11 @@ public class ManejoArchivo {
 	/**************************************************************
 	 * Metodo que lee las lineas del archivo plano
 	 * 
-	 * @param archivo  archivo plano a leer
-	 * @return string 
+	 * @param archivo
+	 *            archivo plano a leer
+	 * @return string
 	 ***************************************************************/
-	public String leerFile(File archivo){//, int index) {
+	public String leerFile(File archivo) {// , int index) {
 		FileReader fr = null;
 		BufferedReader br = null;
 		String linea = null;
@@ -218,10 +220,10 @@ public class ManejoArchivo {
 				// linea += linea+"";
 				// System.out.println(linea);
 				acum += linea + "\n";
-				//cont++;
-				//if (cont == index) {
-				
-				//}
+				// cont++;
+				// if (cont == index) {
+
+				// }
 
 			}
 		} catch (Exception e) {
@@ -271,18 +273,39 @@ public class ManejoArchivo {
 			}
 		}
 	}
-	
-	
-	public void openFile(String path){
+
+	/**
+	 * Metodo que abre archivos con programas de windows dependiendo de su
+	 * extencion
+	 * 
+	 * @param path
+	 *            del archivo
+	 */
+	public void openFile(String path) {
 		if (Desktop.isDesktopSupported()) {
-		    try {
-		        File myFile = new File(path);
-		        Desktop.getDesktop().open(myFile);
-		    } catch (IOException ex) {
-		        // no application registered for PDFs
-		    }
+			try {
+				File myFile = new File(path);
+				Desktop.getDesktop().open(myFile);
+			} catch (IOException ex) {
+				// no application registered for PDFs
+			}
 		}
 	}
 	
+	/**
+	 * Elimina el archivo que haya en el path
+	 * indicado
+	 * @param path
+	 */
+	public void deleteFile(String path){
+
+		File ruta = new File(path);
+		if ( ruta.delete() ){
+			JOptionPane.showMessageDialog(null, "Se elimino el archivo");
+		}else{
+			JOptionPane.showMessageDialog(null, "No se pudo eliminar el archivo");
+		}
+
+	}
 
 }

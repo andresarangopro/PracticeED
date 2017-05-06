@@ -246,10 +246,8 @@ public class BinaryTree<T extends Comparable<T>> {
 	/**
 	 * Permite editar las palabras clave asociadas a un archivo
 	 * 
-	 * @param item
-	 *            palabra clave anterior
-	 * @param archivo
-	 *            Archivo a ser cambiado de palabra clave
+	 * @param item  palabra clave anterior
+	 * @param archivo  Archivo a ser cambiado de palabra clave
 	 */
 	public void eliminarArchivo(String archivo) {
 		inOrderDel(root, archivo);
@@ -258,10 +256,8 @@ public class BinaryTree<T extends Comparable<T>> {
 	/**
 	 * Elimina un archivo de todas sus apariciones en un árbol
 	 * 
-	 * @param n
-	 *            nodo en el cuál se buscará el archivo
-	 * @param archivo
-	 *            archivo a ser eliminado
+	 * @param n  nodo en el cuál se buscará el archivo
+	 * @param archivo    archivo a ser eliminado
 	 */
 	private void inOrderDel(BinaryNode<T> n, String archivo) {
 
@@ -279,7 +275,7 @@ public class BinaryTree<T extends Comparable<T>> {
 	public String levelOrder() {
 		return levelOrder(root);
 	}
-
+	
 	/****************************
 	 * 
 	 * @param raiz
@@ -302,4 +298,42 @@ public class BinaryTree<T extends Comparable<T>> {
 		   }
 		   return result;
 	}
+	
+	
+	public void eliminarALvl(String archivo) {
+		eliminarALvl(root, archivo);
+	}
+
+
+	/****************************
+	 * 
+	 * @param raiz
+	 * @return
+	 ****************************/
+
+	private String eliminarALvl(BinaryNode<T> raiz,String archivo) {
+		 String result = "";
+		 	Queue<BinaryNode<T>> q = new LinkedList<BinaryNode<T>>();
+		    q.add (this.getRoot());
+		    
+		    while (!(q.isEmpty())) {
+		     BinaryNode<T> node = q.remove ();
+		 	if (node.encotrarEnArreglo(archivo)) {
+				node.deleteFromArray(archivo);
+			}
+		     result += node.getItem()+" ";		    
+		     if (node.getLeft()!= null) {
+		       q.add(node.getLeft());
+		       
+		     }
+		     if (node.getRight() != null) {
+		       q.add(node.getRight());
+		   
+		     }
+		   }
+		   return result;
+	}
+	
+
+
 }
