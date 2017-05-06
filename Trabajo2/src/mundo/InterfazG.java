@@ -121,7 +121,9 @@ public class InterfazG extends JFrame {
 
 		JButton btnAdd = new JButton("AGREGAR");
 		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {		
+			
+				
 				if (!txtArchivo.getText().toString().equals("") && txtArchivo.getText() != null) {
 					if (!txtPalabrasC.getText().toString().equals("") && txtPalabrasC.getText() != null) {
 						try {
@@ -208,6 +210,13 @@ public class InterfazG extends JFrame {
 		
 		ImageIcon icoOpen = new ImageIcon("img/carpeta.png");
 		JButton btnOpen = new JButton("");
+		btnOpen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String wordKey = arbol.findNode(TBpalabraABuscar.getText()).elementosForFile();
+				String[] ar = wordKey.split(",");	
+				manejoArchivo.openFile(ar[list.getSelectedIndex()]);
+			}
+		});
 		btnOpen.setBounds(514, 219, 42, 39);
 		btnOpen.setIcon(icoOpen);
 		contentPane.add(btnOpen);
