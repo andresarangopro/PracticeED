@@ -37,11 +37,13 @@ public class WindowsListener implements WindowListener{
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		String treeLevelOrder = Interfazg.arbol.levelOrder();
-		String [] arrLevelTree = treeLevelOrder.split(" ");
-		String listTree = listaNodosForFile(arrLevelTree);
-		Interfazg.manejoArchivo.add(treeLevelOrder, Interfazg.fileTree);
-		Interfazg.manejoArchivo.add(listTree, Interfazg.fileList);
+		if(Interfazg.arbol.getRoot() != null){
+			String treeLevelOrder = Interfazg.arbol.levelOrder();
+			String [] arrLevelTree = treeLevelOrder.split(" ");
+			String listTree = listaNodosForFile(arrLevelTree);
+			Interfazg.manejoArchivo.add(treeLevelOrder, Interfazg.fileTree);
+			Interfazg.manejoArchivo.add(listTree, Interfazg.fileList);
+		}
 	}
 
 	@Override
