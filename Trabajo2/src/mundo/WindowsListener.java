@@ -37,7 +37,6 @@ public class WindowsListener implements WindowListener{
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
 		String treeLevelOrder = Interfazg.arbol.levelOrder();
 		String [] arrLevelTree = treeLevelOrder.split(" ");
 		String listTree = listaNodosForFile(arrLevelTree);

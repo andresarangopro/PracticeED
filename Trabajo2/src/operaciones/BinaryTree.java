@@ -259,7 +259,10 @@ public class BinaryTree<T extends Comparable<T>> {
 	}
 	
 	public String levelOrder() {
-		return levelOrder(root);
+		if(root != null){
+			return levelOrder(root);
+		}
+		return "";
 	}
 	
 	/****************************
