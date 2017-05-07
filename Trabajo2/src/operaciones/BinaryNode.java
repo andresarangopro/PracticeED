@@ -138,6 +138,7 @@ public class BinaryNode<T extends Comparable<T>> implements Comparable<BinaryNod
      * @return true si se encuentra, false en el caso contrario.
      */
     public boolean encotrarEnArreglo(String archivo){
+    	System.out.println(this);
     	for (String string : archivos) {
 			if(archivo.equals(string)){
 				return true;
@@ -149,13 +150,18 @@ public class BinaryNode<T extends Comparable<T>> implements Comparable<BinaryNod
     
     public void deleteFromArray(String item){
     	
+    	ArrayList<String> eliminados = new ArrayList<>();
+    	
     	for (int i = 0; i < archivos.size(); i++) {
-			
     		if(archivos.get(i).equals(item)){
-    			archivos.remove(i);
-    			System.err.println("Eliminado");
+    			eliminados.add(archivos.get(i));
     		}
 		}
+    	archivos.removeAll(eliminados);
+    }
+    
+    public int arraySize(){
+    	return archivos.size();
     }
     
     

@@ -46,7 +46,7 @@ public class InterfazG extends JFrame {
 	private JTextField txtPalabrasC;
 	private JTextField TBpalabraABuscar;
 	private String direccion = "";
-	private String direccion2 = "C:\\Nueva carpeta\\";
+	private final String direccion2 = "C:\\Nueva carpeta\\";
 	private DefaultListModel<String> model = new DefaultListModel<>();
 	private JList<String> list = new JList<>(model);
 	public WindowsListener wl;
@@ -169,8 +169,6 @@ public class InterfazG extends JFrame {
 				// TODO: Cambiar a Jtable esto
 				model.clear();
 				list.setModel(model);
-				String wordKey = "";
-				int pos = 0;
 				if (arbol.buscarPalabra(TBpalabraABuscar.getText())
 						.equalsIgnoreCase("No se encuentran elementos con esta etiqueta")) {
 					JOptionPane.showMessageDialog(null, arbol.buscarPalabra(TBpalabraABuscar.getText()));
@@ -202,7 +200,6 @@ public class InterfazG extends JFrame {
 		contentPane.add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 
-		list = new JList();
 		list.setBorder(new CompoundBorder(
 				new CompoundBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)), null), null));
 		panel_2.add(list, BorderLayout.CENTER);
@@ -213,6 +210,7 @@ public class InterfazG extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int pos = list.getSelectedIndex();
 				if (pos >= 0) {
+
 					String wordKey = arbol.findNode(search).elementosForFile();
 					String[] ar = wordKey.split(",");
 					manejoArchivo.openFile(ar[pos]);
@@ -225,6 +223,23 @@ public class InterfazG extends JFrame {
 
 		ImageIcon icoEdit = new ImageIcon("img/lapiz.png");
 		JButton btnEditar = new JButton("");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				int pos = list.getSelectedIndex();
+				if (pos >= 0) {
+					String name = JOptionPane.showInputDialog("", "Ingrese nuevas palabras: ");
+					String wordKey = arbol.findNode(search).elementosForFile();
+					String[] ar = wordKey.split(",");
+					arbol.eliminarALvl(ar[pos]);
+
+					String[] palabras = name.split(" ");
+					for (int j = 0; j < palabras.length; j++) {
+						arbol.insert(palabras[j], ar[pos]);
+					}					
+				}				
+			}
+		});
 		btnEditar.setBounds(514, 269, 42, 39);
 		btnEditar.setIcon(icoEdit);
 		contentPane.add(btnEditar);

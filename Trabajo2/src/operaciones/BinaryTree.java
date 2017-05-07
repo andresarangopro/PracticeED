@@ -53,9 +53,9 @@ public class BinaryTree<T extends Comparable<T>> {
 		} else {
 			agregarALista(comparar, archivo);
 		}
-
 	}
 
+	
 	private void agregarALista(BinaryNode<T> nodo, String archivo) {
 		nodo.agregarANodo(archivo);
 	}
@@ -243,35 +243,21 @@ public class BinaryTree<T extends Comparable<T>> {
 		}
 	}
 
-	/**
-	 * Permite editar las palabras clave asociadas a un archivo
-	 * 
-	 * @param item  palabra clave anterior
-	 * @param archivo  Archivo a ser cambiado de palabra clave
-	 */
-	public void eliminarArchivo(String archivo) {
-		inOrderDel(root, archivo);
-	}
-
-	/**
-	 * Elimina un archivo de todas sus apariciones en un árbol
-	 * 
-	 * @param n  nodo en el cuál se buscará el archivo
-	 * @param archivo    archivo a ser eliminado
-	 */
-	private void inOrderDel(BinaryNode<T> n, String archivo) {
-
-		if (n.encotrarEnArreglo(archivo)) {
-			n.deleteFromArray(archivo);
-		} else {
-			if (n.getLeft() != null)
-				this.inOrderDel(n.getLeft(), null);
-
-			if (n.getRight() != null)
-				this.inOrderDel(n.getRight(), null);
+	private void eliminarNodos(BinaryNode<T> node){
+		if(node.arraySize() == 0){
+			delete(node.getItem());
+			eliminarNodos(root);
+			return;
+		}else{
+			if(node.getLeft() != null){
+				eliminarNodos(node.getLeft());
+			}
+			if(node.getRight() != null){
+				eliminarNodos(node.getRight());
+			}
 		}
 	}
-
+	
 	public String levelOrder() {
 		return levelOrder(root);
 	}
@@ -302,6 +288,7 @@ public class BinaryTree<T extends Comparable<T>> {
 	
 	public void eliminarALvl(String archivo) {
 		eliminarALvl(root, archivo);
+		eliminarNodos(root);
 	}
 
 
