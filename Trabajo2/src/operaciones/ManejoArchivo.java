@@ -277,9 +277,7 @@ public class ManejoArchivo {
 	/**
 	 * Metodo que abre archivos con programas de windows dependiendo de su
 	 * extencion
-	 * 
-	 * @param path
-	 *            del archivo
+	 * @param path del archivo
 	 */
 	public void openFile(String path) {
 		if (Desktop.isDesktopSupported()) {
