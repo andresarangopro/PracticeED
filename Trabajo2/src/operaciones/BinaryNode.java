@@ -19,6 +19,9 @@ public class BinaryNode<T extends Comparable<T>> implements Comparable<BinaryNod
     
     private T item;
     
+    /**
+     * Arreglo en donde se van a incorporar las direcciones de los archivos.
+     */
     private ArrayList<String> archivos = new ArrayList<>();
     
     public BinaryNode() {

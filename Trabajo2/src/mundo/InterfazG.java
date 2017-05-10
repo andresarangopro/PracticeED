@@ -255,7 +255,8 @@ public class InterfazG extends JFrame {
 					System.out.println(arbol.findNode(search).encotrarEnArreglo(ar[pos])+" "+arbol.getRoot().getItem().toString());
 					arbol.eliminarALvl(ar[pos]);
 					manejoArchivo.deleteFile(ar[pos]);
-					if (ar.length <= 1) arbol.delete(search);								
+					System.out.println(search);
+						
 				}				
 				actualizarList();
 			}

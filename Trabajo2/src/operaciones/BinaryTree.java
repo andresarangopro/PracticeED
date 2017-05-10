@@ -20,6 +20,11 @@ public class BinaryTree<T extends Comparable<T>> {
 	public BinaryTree() {
 	}
 
+	/**
+	 * Inserta un objeto en un nodo, en caso de que el nodo no exista, lo crea.
+	 * @param item Etiqueta la cuál es el nombre del nodo
+	 * @param archivo Archivo a ser insertado en el nodo
+	 */
 	public void insert(T item, String archivo) {
 		BinaryNode<T> comparar = findNode(item);
 		if (comparar == null) {
@@ -55,11 +60,20 @@ public class BinaryTree<T extends Comparable<T>> {
 		}
 	}
 
-	
+	/**
+	 * Agrega un archivo a un nodo
+	 * @param nodo Nombre del nodo
+	 * @param archivo Dirección del archivo a ser agregado
+	 */
 	private void agregarALista(BinaryNode<T> nodo, String archivo) {
 		nodo.agregarANodo(archivo);
 	}
 
+	/**
+	 * Encuentra un nodo.
+	 * @param item Nodo a ser encontrado.
+	 * @return true si lo encuentra, false en el caso contrario.
+	 */
 	public boolean findItem(T item) {
 		BinaryNode<T> current = root;
 
@@ -75,6 +89,11 @@ public class BinaryTree<T extends Comparable<T>> {
 		return false;
 	}
 
+	/**
+	 * Encuentra un nodo.
+	 * @param item Nodo a ser encontrado.
+	 * @return Nodo si es encontrado, null en el caso contrario.
+	 */
 	public BinaryNode<T> findNode(T item) {
 		BinaryNode<T> current = root;
 
@@ -90,7 +109,12 @@ public class BinaryTree<T extends Comparable<T>> {
 		return null;
 	}
 
-	public boolean delete(T item) {
+	/**
+	 * Elimina un nodo del arbol
+	 * @param item Nodo a ser borrado
+	 * @return true si es eliminado, false en el caso contrario.
+	 */
+	private boolean delete(T item) {
 		// Encontrar el nodo a eliminar y su padre
 		BinaryNode<T> current = root;
 		BinaryNode<T> parent = current;
@@ -156,6 +180,11 @@ public class BinaryTree<T extends Comparable<T>> {
 		return true;
 	}
 
+	/**
+	 * Obtiene el sucesro del un nodo
+	 * @param node Nodo a obtener sucesores
+	 * @return sucesor del nodo
+	 */
 	private BinaryNode<T> getSuccessor(BinaryNode<T> node) {
 		BinaryNode<T> successorParent = node;
 		BinaryNode<T> successor = node;
@@ -168,11 +197,14 @@ public class BinaryTree<T extends Comparable<T>> {
 
 			if (current == null) {
 				// hace las conexiones
-				successorParent.setLeft(successor.getRight());
-				successor.setRight(node.getRight());
+				if (successorParent != node) {
+					successorParent.setLeft(successor.getRight());
+				}
+				if (successor != node.getRight()) {
+					successor.setRight(node.getRight());
+				}
 			}
 		}
-
 		return successor;
 	}
 
@@ -184,25 +216,26 @@ public class BinaryTree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * @param root
-	 *            the root to set
+	 * Cambia la raiz del árbol
+	 * @param root nodo a ser la nueva raiz
 	 */
+	
 	public void setRoot(BinaryNode<T> root) {
 		this.root = root;
 	}
 
 	/**
-	 * Displays the tree in a String
-	 * 
-	 * @return
+	 * Imprime el arbol en un String
+	 * @return String de árbol o "Arbol vacío" en caso de no tener nigún item.
 	 */
 	public String displayTree() {
 		if (root != null) {
 			return this.toString(new StringBuilder(), true, new StringBuilder(), root).toString();
 		} else {
-			return "Empty tree";
+			return "Árbol vacío";
 		}
 	}
+
 
 	/**
 	 * 
@@ -226,11 +259,11 @@ public class BinaryTree<T extends Comparable<T>> {
 		return sb;
 	}
 
+
 	/**
-	 * Busca en el árbol la palabra clave a encontrar
-	 * 
-	 * @param item   palabra a buscar
-	 * @return lista de elementos en el nodo.
+	 * Busca un nodo con una etiqueta
+	 * @param item nodo a ser encontrado
+	 * @return ""No se encuentran elementos con esta etiqueta" o los elementos del nodo en caso contrario
 	 */
 	public String buscarPalabra(T item) {
 
@@ -243,87 +276,99 @@ public class BinaryTree<T extends Comparable<T>> {
 		}
 	}
 
-	private void eliminarNodos(BinaryNode<T> node){
-		if(node.arraySize() == 0){
+	/**
+	 * Elmina los nodos que no tengan archivos en su interio
+	 * @param node nodo a comprobar si tiene archivos
+	 */
+	private void eliminarNodos(BinaryNode<T> node) {
+		if(node == null){
+			return;
+		}
+		if (node.arraySize() == 0) {
 			delete(node.getItem());
 			eliminarNodos(root);
 			return;
-		}else{
-			if(node.getLeft() != null){
+		} else {
+			if (node.getLeft() != null) {
 				eliminarNodos(node.getLeft());
 			}
-			if(node.getRight() != null){
+			if (node.getRight() != null) {
 				eliminarNodos(node.getRight());
 			}
 		}
 	}
-	
+
+	/**
+	 * Recorre el arbol en level order
+	 * @return String con los elementos el lvlorder
+	 */
 	public String levelOrder() {
-		if(root != null){
+		if (root != null) {
 			return levelOrder(root);
 		}
 		return "";
 	}
-	
-	/****************************
-	 * 
-	 * @param raiz
-	 * @return
-	 ****************************/
 
+
+
+	/**
+	 * Recorree el arbol en lvlorder
+	 * @param raiz raiz del arbol
+	 * @return String con todos los elementos del árbol
+	 */
 	public String levelOrder(BinaryNode<T> raiz) {
-		 String result = "";
-		 	Queue<BinaryNode<T>> q = new LinkedList<BinaryNode<T>>();
-		    q.add (this.getRoot());
-		    while (!(q.isEmpty())) {
-		     BinaryNode<T> node = q.remove ();
-		     result += node.getItem()+" ";
-		     if (node.getLeft()!= null) {
-		       q.add(node.getLeft());
-		     }
-		     if (node.getRight() != null) {
-		       q.add(node.getRight());
-		     }
-		   }
-		   return result;
+		String result = "";
+		Queue<BinaryNode<T>> q = new LinkedList<BinaryNode<T>>();
+		q.add(this.getRoot());
+		while (!(q.isEmpty())) {
+			BinaryNode<T> node = q.remove();
+			result += node.getItem() + " ";
+			if (node.getLeft() != null) {
+				q.add(node.getLeft());
+			}
+			if (node.getRight() != null) {
+				q.add(node.getRight());
+			}
+		}
+		return result;
 	}
-	
-	
+
+	/**
+	 * Elimina un archivo de todas sus apariciones en el árbol
+	 * @param archivo Archivo a ser eliminado
+	 */
 	public void eliminarALvl(String archivo) {
 		eliminarALvl(root, archivo);
 		eliminarNodos(root);
 	}
 
+	/**
+	 * Elimina un archivo de todas sus apariciones
+	 * @param raiz primer nodo del arbol
+	 * @param archivo archivo a ser eliminado
+	 * @return String con los elementos del arbol
+	 */
+	private String eliminarALvl(BinaryNode<T> raiz, String archivo) {
+		String result = "";
+		Queue<BinaryNode<T>> q = new LinkedList<BinaryNode<T>>();
+		q.add(this.getRoot());
 
-	/****************************
-	 * 
-	 * @param raiz
-	 * @return
-	 ****************************/
-
-	private String eliminarALvl(BinaryNode<T> raiz,String archivo) {
-		 String result = "";
-		 	Queue<BinaryNode<T>> q = new LinkedList<BinaryNode<T>>();
-		    q.add (this.getRoot());
-		    
-		    while (!(q.isEmpty())) {
-		     BinaryNode<T> node = q.remove ();
-		 	if (node.encotrarEnArreglo(archivo)) {
+		while (!(q.isEmpty())) {
+			BinaryNode<T> node = q.remove();
+			if (node.encotrarEnArreglo(archivo)) {
 				node.deleteFromArray(archivo);
 			}
-		     result += node.getItem()+" ";		    
-		     if (node.getLeft()!= null) {
-		       q.add(node.getLeft());
-		       
-		     }
-		     if (node.getRight() != null) {
-		       q.add(node.getRight());
-		   
-		     }
-		   }
-		   return result;
-	}
-	
+			result += node.getItem() + " ";
+			if (node.getLeft() != null) {
+				q.add(node.getLeft());
 
+			}
+			if (node.getRight() != null) {
+				q.add(node.getRight());
+
+			}
+		}
+		return result;
+	}
 
 }
