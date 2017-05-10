@@ -246,7 +246,6 @@ public class BinaryTree<T extends Comparable<T>> {
 	 * @return
 	 */
 	private StringBuilder toString(StringBuilder prefix, boolean esIzquierdo, StringBuilder sb, BinaryNode<T> node) {
-		System.out.println(node.getItem() + ": " + node.elementos());
 		if (node.getRight() != null) {
 			toString(new StringBuilder().append(prefix).append(esIzquierdo ? "│   " : "    "), false, sb,
 					node.getRight());
@@ -284,7 +283,7 @@ public class BinaryTree<T extends Comparable<T>> {
 		if(node == null){
 			return;
 		}
-		if (node.arraySize() == 0) {
+		if (node.tamano() == 0) {
 			delete(node.getItem());
 			eliminarNodos(root);
 			return;

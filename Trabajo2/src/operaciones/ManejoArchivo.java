@@ -35,8 +35,6 @@ public class ManejoArchivo {
 		if (!folder.exists()) {
 			folder.mkdir();
 		}
-		// if (folder.isDirectory()) {System.out.println("Es un directorio"); }
-		// if (folder.isFile()) { System.out.println("is file"); }
 	}
 
 	/************************************************************
@@ -89,14 +87,12 @@ public class ManejoArchivo {
 		String nombreD = "";
 		String[] p = direccion.split("\\\\");
 		a = p[p.length - 1];
-		System.out.println(a);
 		String extencion = a.substring(a.indexOf("."), a.length());
 		File fIn = new File(direccion);
 		char[] dir = a.toCharArray();
 		for (int i = 0; i < a.indexOf("."); i++) {
 			nombreD += dir[i];
 		}
-		System.out.println(nombreD);
 		String name = System.currentTimeMillis() + "";
 		File fOut = new File(direccion2 + name + "_" + nombreD + extencion);
 		copyFile(fIn, fOut);
@@ -217,14 +213,7 @@ public class ManejoArchivo {
 			br = new BufferedReader(fr);
 			// Lectura del fichero
 			while ((linea = br.readLine()) != null) {
-				// linea += linea+"";
-				// System.out.println(linea);
 				acum += linea + "\n";
-				// cont++;
-				// if (cont == index) {
-
-				// }
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

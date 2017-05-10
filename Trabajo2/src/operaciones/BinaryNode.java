@@ -85,10 +85,18 @@ public class BinaryNode<T extends Comparable<T>> implements Comparable<BinaryNod
         this.item = item;
     }
 
+    /**
+     * Devuelve el tamaño del arraylist del nodo
+     * @return tamaño del arraylist en el nodo
+     */
     public int tamano(){
     	return archivos.size();
     }
     
+    /**
+     * Retorna los archivos en el arraylist
+     * @return Arraylist de archivos
+     */
     public ArrayList<String> getArchivos() {
 		return archivos;
 	}
@@ -100,8 +108,6 @@ public class BinaryNode<T extends Comparable<T>> implements Comparable<BinaryNod
     public void agregarANodo(String item){
     	archivos.add(item);
     }
-    
-   
     
     /**
      * Devuelve una lista con todos los elementos existentes en el nodo;
@@ -141,7 +147,7 @@ public class BinaryNode<T extends Comparable<T>> implements Comparable<BinaryNod
      * @return true si se encuentra, false en el caso contrario.
      */
     public boolean encotrarEnArreglo(String archivo){
-    	System.out.println(this);
+
     	for (String string : archivos) {
 			if(archivo.equals(string)){
 				return true;
@@ -151,6 +157,10 @@ public class BinaryNode<T extends Comparable<T>> implements Comparable<BinaryNod
     	
     }
     
+    /**
+     * Elimina un elemento en el Arraylist
+     * @param item elemento a ser eliminado.
+     */
     public void deleteFromArray(String item){
     	
     	ArrayList<String> eliminados = new ArrayList<>();
@@ -162,10 +172,6 @@ public class BinaryNode<T extends Comparable<T>> implements Comparable<BinaryNod
 		}
     	archivos.removeAll(eliminados);
     }
-    
-    public int arraySize(){
-    	return archivos.size();
-    }
-    
+
     
 }
